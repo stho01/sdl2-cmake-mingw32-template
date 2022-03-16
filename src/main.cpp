@@ -5,6 +5,8 @@
 using namespace std;
 
 int main(int argc, char* args[]) {
+
+    cout << "Success!" << endl;
     auto lesson = new Lesson06();
     lesson->run();
     delete lesson;
