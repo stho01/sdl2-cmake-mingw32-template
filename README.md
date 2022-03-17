@@ -53,7 +53,7 @@ You should now be able to inspect the folders in Windows Explorer.
 
 Okey..\
 Now we want to copy the libs out the the root of the folder you just made. \
-For 64bit version copy the content of the x86 folder and for the 32bit version copy the content of i686 \
+For 64bit version copy the content of the i686 folder and for the 32bit version copy the content of x86 \
 
 Example 32bit: 
 inside SDL2-x.x.x/x86_64-w64-mingw32/
