@@ -68,7 +68,7 @@ to: \
 
 ### Configure the CMakeLists.txt 
 
-> NOTE: This step applies only if you choose to install SDL to another folder than `C:/SDL`
+> NOTE: This step applies only if you chose to install SDL to another folder than `C:/SDL`
 
 Inside the CMakeLists.txt file you should see the variables that points to the SDL2 directories
 ```
