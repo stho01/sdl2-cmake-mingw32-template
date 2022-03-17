@@ -1,6 +1,6 @@
 # SDL2 With CMake and MinGW
 
-A basic template for building apps/games using the SDL2 libraries with CMake and MinGW compiler. 
+A basic template for building apps/games using the SDL2 libraries with CMake and MinGW compiler on Windows.
 
 Typical folder structure:
 * /include - your header files. 
