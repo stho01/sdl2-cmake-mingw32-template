@@ -22,10 +22,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
                                 #   Therefore each developer must change the SDL2 paths to their SDL2 folder.
                                 #   ...and libs is probably not compatible with all compilers.
 
+# NOTE: Folders here contain both SDL2 and SDL2_image files.
 set(SDL2_LIB_DIR C:/SDL/lib)
 set(SDL2_INCLUDE_DIR C:/SDL/include)
 set(SDL2_LIBRARY C:/SDL/bin)
-
 
 # SETUP INCLUDE AND LINK DIRS:
 
@@ -60,7 +60,6 @@ target_link_libraries(
         SDL2main
         SDL2
         SDL2_image
-        SDL2_ttf
 )
 
 
