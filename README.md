@@ -45,7 +45,7 @@ There should be some .gz files where the name is something like this:
 Make a folder where ever you like on your system. \
 For this example we will keep it simple and installing the libs to `C:/SDL` 
 
-Move the downloaded files to your folder \
+Move the downloaded files to your newly created folder \
 Use your preferred extracting tool (e.g 7z) and extract the gz files \
 and then once again extract the .tar files.
 
