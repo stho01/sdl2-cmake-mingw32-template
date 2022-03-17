@@ -1,6 +1,6 @@
 #include "Lesson06.h"
 
-Lesson06::Lesson06() : LessonBase2("Lesson 06 - Extension libs and loading other image formats")
+Lesson06::Lesson06() : LessonBase("Lesson 06 - Extension libs and loading other image formats")
 {
 
 }

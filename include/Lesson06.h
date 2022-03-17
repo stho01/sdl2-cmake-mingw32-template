@@ -1,8 +1,12 @@
 #pragma once
-#include "LessonBase2.h"
+#include "LessonBase.h"
 
-class Lesson06 :
-        public LessonBase2
+/**
+ * LazyFoo lesson 06
+ * https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php
+ */
+
+class Lesson06 : public LessonBase
 {
 public:
     Lesson06();

@@ -1,7 +1,7 @@
-#include "LessonBase2.h"
+#include "LessonBase.h"
 #include <SDL2/SDL_image.h>
 
-LessonBase2::~LessonBase2()
+LessonBase::~LessonBase()
 {
     SDL_DestroyWindow(_window);
 
@@ -12,7 +12,7 @@ LessonBase2::~LessonBase2()
     printf("SDL Quit");
 }
 
-int LessonBase2::run()
+int LessonBase::run()
 {
     if (!initSdl())
     {
@@ -37,7 +37,7 @@ int LessonBase2::run()
     return 0;
 }
 
-bool LessonBase2::initSdl()
+bool LessonBase::initSdl()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -54,7 +54,7 @@ bool LessonBase2::initSdl()
     return true;
 }
 
-SDL_Surface* LessonBase2::loadSurface(const std::string path) const
+SDL_Surface* LessonBase::loadSurface(const std::string path) const
 {
     auto* loaded = IMG_Load(path.c_str());
     if (loaded == nullptr)
@@ -73,17 +73,17 @@ SDL_Surface* LessonBase2::loadSurface(const std::string path) const
     return optimized;
 }
 
-void LessonBase2::drawToScreen(SDL_Surface* surface) const
+void LessonBase::drawToScreen(SDL_Surface* surface) const
 {
     SDL_BlitSurface(surface, nullptr, _windowSurface, nullptr);
 }
 
-void LessonBase2::drawToScreen(SDL_Surface* surface, SDL_Rect* rect) const
+void LessonBase::drawToScreen(SDL_Surface* surface, SDL_Rect* rect) const
 {
     SDL_BlitScaled(surface, nullptr, _windowSurface, rect);
 }
 
-void LessonBase2::pollEvents(SDL_Event* e)
+void LessonBase::pollEvents(SDL_Event* e)
 {
     while (SDL_PollEvent(e) != 0)
     {
@@ -93,7 +93,7 @@ void LessonBase2::pollEvents(SDL_Event* e)
     }
 }
 
-bool LessonBase2::initImg()
+bool LessonBase::initImg()
 {
     const int imgFlags = IMG_INIT_PNG;
 
@@ -106,7 +106,7 @@ bool LessonBase2::initImg()
     return true;
 }
 
-bool LessonBase2::createWindow()
+bool LessonBase::createWindow()
 {
     _window = SDL_CreateWindow(
             _title.empty() ? "SDL Lesson" : _title.c_str(),

@@ -11,14 +11,24 @@ set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+
+
+# SETUP SDL2
+
+# find_package(SDL2 REQUIRED)   # <<< probably best practice.
+                                # But lets do it manually for now.
+                                #   The downside is that if the development environment
+                                #   differ from others (which they tend to do).
+                                #   Therefore each developer must change the SDL2 paths to their SDL2 folder.
+                                #   ...and libs is probably not compatible with all compilers.
+
 set(SDL2_LIB_DIR C:/SDL/lib)
 set(SDL2_INCLUDE_DIR C:/SDL/include)
 set(SDL2_LIBRARY C:/SDL/bin)
 
 
-# SETUP SDL2:
+# SETUP INCLUDE AND LINK DIRS:
 
-# find_package(SDL2 REQUIRED) # <<< probably best practice but..(?)
 
 include_directories(
     ${SDL2_INCLUDE_DIR}
@@ -35,10 +45,9 @@ link_directories(
 add_executable(
     ${PROJECT_NAME}
         src/main.cpp
-        include/Lesson06.h
         include/LessonBase.h
-        include/LessonBase2.h
-        src/LessonBase2.cpp
+        src/LessonBase.cpp
+        include/Lesson06.h
         src/Lesson06.cpp
 )
 
@@ -58,10 +67,17 @@ target_link_libraries(
 # COPY OVER STATIC FILES
 
 message(STATUS "Copying all assets to destination folder...")
-file(COPY assets DESTINATION ${OUTPUT_DIR})
+file(
+    COPY assets
+    DESTINATION ${OUTPUT_DIR}
+)
 
 message(STATUS "Copying all dependencies to destination folder...")
 file(GLOB PROJECT_DEPENDENCIES ${SDL2_LIBRARY}/*.dll)
+
 foreach(Dependency IN LISTS PROJECT_DEPENDENCIES)
-    file(COPY ${Dependency} DESTINATION ${OUTPUT_DIR})
+    file(
+        COPY ${Dependency}
+        DESTINATION ${OUTPUT_DIR}
+    )
 endforeach()
