@@ -70,7 +70,7 @@ to: \
 
 > NOTE: This step applies only if you chose to install SDL to another folder than `C:/SDL`
 
-Inside the CMakeLists.txt file you should see the variables that points to the SDL2 directories
+Make sure that the SDL2 variables inside the CMakeLists.txt file points to the SDL2 directories
 ```
 set(SDL2_LIB_DIR C:/SDL/lib)
 set(SDL2_INCLUDE_DIR C:/SDL/include)
