@@ -1,14 +1,12 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "Lesson06.h"
+#include "Game.h"
 
 using namespace std;
 
 int main(int argc, char* args[]) {
-
     cout << "Success!" << endl;
-    auto lesson = new Lesson06();
-    lesson->run();
-    delete lesson;
+    Game lesson;
+    lesson.run();
     return 0;
 }

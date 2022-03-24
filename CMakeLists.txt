@@ -42,14 +42,15 @@ link_directories(
 
 # INCLUDE FILES THAT SHOULD BE COMPILED:
 
-add_executable(
-    ${PROJECT_NAME}
-        src/main.cpp
-        include/LessonBase.h
-        src/LessonBase.cpp
-        include/Lesson06.h
-        src/Lesson06.cpp
-)
+file(GLOB_RECURSE SRC "src/*.cpp" "src/*.h")
+
+message(STATUS "Add source files:")
+foreach(SRC_FILE IN LISTS SRC)
+    message(STATUS "${SRC_FILE}")
+endforeach()
+message(STATUS "")
+
+add_executable(${PROJECT_NAME} ${SRC})
 
 
 # LINK PROGRAM

@@ -1,10 +1,15 @@
-#include "LessonBase.h"
+#include "GameBase.h"
 #include <SDL2/SDL_image.h>
 
-LessonBase::~LessonBase()
+GameBase::~GameBase()
 {
-    SDL_DestroyWindow(_window);
+    while (!_textures.empty()) {
+        auto it = _textures.begin();
+        _textures.erase(it);
+        SDL_DestroyTexture(*it);
+    }
 
+    SDL_DestroyWindow(_window);
     _window = nullptr;
 
     IMG_Quit();
@@ -12,7 +17,7 @@ LessonBase::~LessonBase()
     printf("SDL Quit");
 }
 
-int LessonBase::run()
+int GameBase::run()
 {
     if (!initSdl())
     {
@@ -30,14 +35,16 @@ int LessonBase::run()
     while(!_quit)
     {
         pollEvents(&e);
-        loop();
-        SDL_UpdateWindowSurface(_window);
+        update();
+        SDL_RenderClear(_renderer);
+        draw(_renderer);
+        SDL_RenderPresent(_renderer);
     }
 
     return 0;
 }
 
-bool LessonBase::initSdl()
+bool GameBase::initSdl()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -54,36 +61,7 @@ bool LessonBase::initSdl()
     return true;
 }
 
-SDL_Surface* LessonBase::loadSurface(const std::string path) const
-{
-    auto* loaded = IMG_Load(path.c_str());
-    if (loaded == nullptr)
-    {
-        printf("Failed load image %s! SDL Error: %s\n", path.c_str(), IMG_GetError());
-        return nullptr;
-    }
-
-    auto* optimized = SDL_ConvertSurface(
-            loaded,
-            _windowSurface->format,
-            0);
-
-    SDL_FreeSurface(loaded);
-
-    return optimized;
-}
-
-void LessonBase::drawToScreen(SDL_Surface* surface) const
-{
-    SDL_BlitSurface(surface, nullptr, _windowSurface, nullptr);
-}
-
-void LessonBase::drawToScreen(SDL_Surface* surface, SDL_Rect* rect) const
-{
-    SDL_BlitScaled(surface, nullptr, _windowSurface, rect);
-}
-
-void LessonBase::pollEvents(SDL_Event* e)
+void GameBase::pollEvents(SDL_Event* e)
 {
     while (SDL_PollEvent(e) != 0)
     {
@@ -93,7 +71,7 @@ void LessonBase::pollEvents(SDL_Event* e)
     }
 }
 
-bool LessonBase::initImg()
+bool GameBase::initImg()
 {
     const int imgFlags = IMG_INIT_PNG;
 
@@ -106,7 +84,7 @@ bool LessonBase::initImg()
     return true;
 }
 
-bool LessonBase::createWindow()
+bool GameBase::createWindow()
 {
     _window = SDL_CreateWindow(
             _title.empty() ? "SDL Lesson" : _title.c_str(),
@@ -122,7 +100,19 @@ bool LessonBase::createWindow()
         return false;
     }
 
-    _windowSurface = SDL_GetWindowSurface(_window);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
     return true;
+}
+
+SDL_Texture* GameBase::loadTexture(const std::string& path) {
+    auto texture = IMG_LoadTexture(_renderer, path.c_str());
+
+    if (texture != nullptr) {
+        _textures.push_back(texture);
+        return texture;
+    }
+
+    printf("Failed to load texture: %s", path.c_str());
+    return nullptr;
 }
